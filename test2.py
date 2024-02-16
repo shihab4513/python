@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import csv
 import queue
 
@@ -66,7 +66,6 @@ def dijkstra(graph, start, end):
 start = 'Sun'
 end = '61 Virginis'
 print(dijkstra(graph, start, end))
-=======
 import csv
 import queue
 
@@ -134,4 +133,4 @@ def dijkstra(graph, start, end):
 start = 'Sun'
 end = '61 Virginis'
 print(dijkstra(graph, start, end))
->>>>>>> 0e25f7e11c50e3f68f6b9b9bdfa24bd111b3a822
+
