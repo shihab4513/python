@@ -63,8 +63,8 @@ def dijkstra(graph, start, end):
     return distances[end], path_string
 
 # Apply Dijkstra's algorithm using PriorityQueue
-start = 'Sun'
-end = '61 Virginis'
+start = 'TRAPPIST-1'
+end = '55 Cancri'
 print(dijkstra(graph, start, end))
 import csv
 import queue

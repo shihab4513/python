@@ -45,7 +45,7 @@ def dijkstra(start, end, graph):
 
 if __name__ == "__main__":
     distances = csv_file_reader('distances.csv')
-    start = 'Sun'
-    end = '61 Virginis'
+    start = 'TRAPPIST-1'
+    end = '55 Cancri'
     graph = createGraph(distances)
     print(dijkstra(start, end, graph))
