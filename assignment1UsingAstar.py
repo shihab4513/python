@@ -36,6 +36,7 @@ def heuristic(vertex, goal, coordinates_dictionary):
     return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2 + (z1 - z2) ** 2)
 
 
+# A* algorithm
 def a_star(graph, start, end, coordinates_dictionary):
     pq = queue.PriorityQueue()
     pq.put((0, start))
@@ -71,7 +72,7 @@ def a_star(graph, start, end, coordinates_dictionary):
 
     # Convert path sequence to string
     path_string = ' -> '.join(path_sequence)
-
+    # return result as array
     return [costs[end], path_string]
 
 
