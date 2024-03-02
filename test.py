@@ -1,71 +1,23 @@
-import csv
-import heapq
+import random
+import math
 
+def count_collisions(state):
+    collisions = 0
+    for i in range(4):
+        for j in range(i + 1, 4):
+            if state[i] == state[j] or abs(state[i] - state[j]) == j - i:
+                collisions += 1
+    return collisions
 
-def read_csv_file(file_name):
-    with open(file_name, 'r') as file:
-        reader = csv.reader(file)
-        return list(reader)
+def solve():
+    state = [random.randint(0, 3) for _ in range(4)]
+    temp = 1000
+    while temp > 0:
+        next_state = state[:]
+        next_state[random.randint(0, 3)] = random.randint(0, 3)
+        if count_collisions(next_state) < count_collisions(state) or random.random() < math.exp((count_collisions(state) - count_collisions(next_state)) / temp):
+            state = next_state
+        temp -= 1
+    return state
 
-
-def create_graph(distances, coordinates):
-    graph = {}
-    for row in distances:
-        source, destination, distance = row
-
-        if source not in graph:
-            graph[source] = {}
-        graph[source][destination] = int(distance)
-
-    return graph
-
-
-def dijkstra(graph, start, end):
-    queue = []
-    heapq.heappush(queue, (0, start))
-    distances = {node: float('infinity') for node in graph}
-    distances[start] = 0
-    path = {}
-
-    while queue:
-        current_distance, current_vertex = heapq.heappop(queue)
-
-        if distances[current_vertex] < current_distance:
-            continue
-
-        for adjacent, weight in graph[current_vertex].items():
-            distance = current_distance + weight
-
-            if distance < distances[adjacent]:
-                distances[adjacent] = distance
-                heapq.heappush(queue, (distance, adjacent))
-                path[adjacent] = current_vertex
-
-    if end not in path:
-        return float('infinity'), ''
-
-    # Reconstruct path from end to start
-    path_output = end
-    path_sequence = [end]
-    while path_output != start:
-        path_output = path[path_output]
-        path_sequence.append(path_output)
-    path_sequence.reverse()
-
-    # Convert path sequence to string
-    path_string = ' -> '.join(path_sequence)
-
-    return distances[end], path_string
-
-
-# Read data from CSV files
-distances = read_csv_file('distances.csv')
-coordinates = read_csv_file('Coordinates.csv')
-
-# Create graph
-graph = create_graph(distances, coordinates)
-
-# Apply Dijkstra's algorithm
-start = 'Sun'
-end = '61 Virginis'
-print(dijkstra(graph, start, end))
+print(solve())
